@@ -13,7 +13,7 @@ const PlaceList = (props) => {
 const myPlaces = useSelector(state => state.places.places);
 
 const renderPlacesHandler = (itemData)=> {
-  return <Place title={itemData.item.title} address={null} image={null} onSelect={()=>{
+  return <Place title={itemData.item.title} address={null} image={itemData.item.imgUri} onSelect={()=>{
     props.navigation.navigate('Explore',{
       id: itemData.item.id,
       title: itemData.item.title
