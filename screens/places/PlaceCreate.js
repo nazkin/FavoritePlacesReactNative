@@ -4,8 +4,8 @@ import {useDispatch} from 'react-redux';
 
 import * as placesActions from '../redux/actions/placeActions';
 import colors from '../../constants/colors';
-import ImageTaker from '../../components/ImagePicker'
-
+import ImageTaker from '../../components/ImagePicker';
+import LocationSelector from '../../components/LocationPicker';
 
 const PlaceCreate = (props) => {
   const dispatch = useDispatch();
@@ -20,13 +20,13 @@ const PlaceCreate = (props) => {
   const imageSelectionHandler = (imgURI) =>{
     setSelectedImg(imgURI)
   }
-  const { form, label, input } = styles
+  const { container,form, label, input } = styles
  return(
-    <ScrollView>
+    <ScrollView style={container}>
         <View style={form}>
           <Text style={label}>Title</Text>
           <TextInput
-
+            autoFocus={true}
             style={input}
             value={title}
             onChangeText={(txt)=> setTitle(txt)}
@@ -34,7 +34,8 @@ const PlaceCreate = (props) => {
           />
 
           <ImageTaker onImageSelect={imageSelectionHandler}/>
-          <Button title="Save" color={colors.accentPurple} onPress={()=> savePlaceHandler(title, selectedImg)}/>
+          <LocationSelector />
+          <Button title="Save" color={colors.orangeLight} onPress={()=> savePlaceHandler(title, selectedImg)}/>
         </View>
     </ScrollView>
   )
@@ -48,20 +49,27 @@ PlaceCreate['navigationOptions'] = (navData)=> {
 }
 
 const styles = StyleSheet.create({
+  container:{
+    backgroundColor: colors.cyanLight
+  },
   form:{
-    margin: 30
+    margin: 20,
+    
   },
   label: {
-    fontSize: 18,
-    marginVertical: 10,
+    fontSize: 20,
+    fontWeight: '700',
+    color: 'white',
+    padding: 5, 
+    backgroundColor: colors.cyanDark
   },
   input: {
-    borderBottomColor: '#cdcdcd',
+    borderBottomColor: colors.orangeDark,
     borderBottomWidth: 3,
     paddingVertical:5,
     paddingHorizontal: 3,
-    backgroundColor: 'rgba(255,255,255,0.3)',
-    marginVertical: 10
+    backgroundColor: '#bdbdbd',
+    marginBottom: 10
   }
 })
 export default PlaceCreate

@@ -9,7 +9,7 @@ import * as Permissions from 'expo-permissions';
 **/
 const ImagePickerComponent = (props) => {
 
-    const [takenImage, setTakenImage] = useState(null);
+const [takenImage, setTakenImage] = useState(null);
 
 const verifyPermissions = async ()=> {
     const resCamera = await Permissions.askAsync(Permissions.CAMERA);
@@ -66,7 +66,7 @@ const styles = StyleSheet.create({
   imagePreview:{
       width: '100%',
       minHeight: 100,
-      backgroundColor: colors.orangeLight,
+      
       justifyContent: 'center',
       alignItems: 'center',
   },
@@ -75,11 +75,14 @@ const styles = StyleSheet.create({
       height: 180
   },
   noImgTxt:{
+      width: '60%',
+      textAlign: 'center',
       padding:10,
       fontSize:20,
       color: 'ghostwhite',
-      borderColor: colors.cyanDark,
-      borderWidth: 4
+      borderBottomColor: colors.cyanDark,
+      borderBottomWidth: 4,
+      backgroundColor: 'rgba(0,0,0,0.1)',
   },
   takePhoto: {
       width: '100%',
