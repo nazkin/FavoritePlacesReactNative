@@ -20,7 +20,7 @@ const PlaceCreate = (props) => {
   const imageSelectionHandler = (imgURI) =>{
     setSelectedImg(imgURI)
   }
-  const { container,form, label, input } = styles
+  const { container,form, label, input, submitBtn } = styles
  return(
     <ScrollView style={container}>
         <View style={form}>
@@ -35,7 +35,9 @@ const PlaceCreate = (props) => {
 
           <ImageTaker onImageSelect={imageSelectionHandler}/>
           <LocationSelector />
-          <Button title="Save" color={colors.orangeLight} onPress={()=> savePlaceHandler(title, selectedImg)}/>
+          <View style={submitBtn}>
+            <Button title="Save" color={colors.orangeLight} onPress={()=> savePlaceHandler(title, selectedImg)}/>
+          </View>
         </View>
     </ScrollView>
   )
@@ -50,26 +52,40 @@ PlaceCreate['navigationOptions'] = (navData)=> {
 
 const styles = StyleSheet.create({
   container:{
-    backgroundColor: colors.cyanLight
+    backgroundColor: colors.cyanLight,
+  
   },
   form:{
     margin: 20,
-    
+    justifyContent: 'flex-start',
+    alignItems: 'center'
   },
   label: {
     fontSize: 20,
     fontWeight: '700',
     color: 'white',
     padding: 5, 
-    backgroundColor: colors.cyanDark
+    backgroundColor: colors.orangeDark,
+    alignSelf:'flex-start',
+    width: '60%',
+    borderRadius: 10
   },
   input: {
     borderBottomColor: colors.orangeDark,
     borderBottomWidth: 3,
     paddingVertical:5,
     paddingHorizontal: 3,
-    backgroundColor: '#bdbdbd',
-    marginBottom: 10
+    backgroundColor: 'rgba(255, 255, 255, 0.5)',
+    marginBottom: 15,
+    width: '100%',
+    borderRadius: 10
+  },
+  submitBtn:{
+    width: '50%',
+    borderWidth: 1,
+    borderColor: colors.orangeDark,
+    borderRadius: 20,
+    overflow: 'hidden',
   }
 })
 export default PlaceCreate

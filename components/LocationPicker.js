@@ -84,17 +84,18 @@ const selectLocationHandler = async ()=> {
 
 const styles = StyleSheet.create({
   container: {
-   width: '100%',
+   width: '80%',
    minHeight: 160,
    justifyContent: 'center',
    alignItems: 'center',
-   marginVertical: 1
+   marginBottom: 30
   },
   locSelect:{
       width: '100%',
       minHeight:100,
       alignItems:'center',
       justifyContent: 'center',
+      backgroundColor: 'rgba(0,0,0, 0.1)'
       
   },
   locTxt:{
@@ -105,7 +106,7 @@ const styles = StyleSheet.create({
       borderBottomWidth: 3,
       fontSize: 20,
       textAlign: 'center',
-      backgroundColor: 'rgba(0,0,0, 0.1)'
+      backgroundColor: 'rgba(0,0,0, 0.2)'
       
   },
   locPicker:{
@@ -113,6 +114,7 @@ const styles = StyleSheet.create({
     padding: 5,
     backgroundColor: colors.orangeDark,
     marginBottom: 20,
+    borderRadius:10
     
   }
 

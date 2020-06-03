@@ -62,11 +62,12 @@ const styles = StyleSheet.create({
    flex: 1,
    justifyContent: 'center',
    alignItems: 'center',
+   width: '80%'
   },
   imagePreview:{
       width: '100%',
       minHeight: 100,
-      
+      backgroundColor: 'rgba(0,0,0,0.1)',
       justifyContent: 'center',
       alignItems: 'center',
   },
@@ -82,13 +83,14 @@ const styles = StyleSheet.create({
       color: 'ghostwhite',
       borderBottomColor: colors.cyanDark,
       borderBottomWidth: 4,
-      backgroundColor: 'rgba(0,0,0,0.1)',
+      backgroundColor: 'rgba(0,0,0,0.2)',
   },
   takePhoto: {
       width: '100%',
       padding: 5,
       backgroundColor: colors.orangeDark,
-      marginBottom: 20
+      marginBottom: 20,
+      borderRadius: 10
   }
 })
 export default ImagePickerComponent
