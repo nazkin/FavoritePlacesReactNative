@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import { View, Text, StyleSheet, ScrollView, TextInput, Button } from 'react-native';
 import {useDispatch} from 'react-redux';
 
@@ -13,12 +13,31 @@ const PlaceCreate = (props) => {
   const [isLoading, setIsLoading] = useState(false);
   const [selectedImg, setSelectedImg] = useState(null);
 
+
+  // let mapLat = !props.navigation.getParam('lat') ? null : props.navigation.getParam('lat') ;
+  // let mapLong = !props.navigation.getParam('long') ? null : props.navigation.getParam('long');
+
+  // useEffect(()=> {
+
+  //   if(!mapLat || !mapLong){
+  //     return
+  //   }
+
+  //   setLatitude(mapLat);
+  //   setLongitude(mapLong);
+
+  // }, [mapLat, mapLong])
+
   const savePlaceHandler = (textTitle, image)=> {
     dispatch(placesActions.addPlace(textTitle, image));
     props.navigation.goBack();
   }
   const imageSelectionHandler = (imgURI) =>{
     setSelectedImg(imgURI)
+  }
+
+  const setLocationWithMapHandler = () => {
+    props.navigation.navigate('Map');
   }
   const { container,form, label, input, submitBtn } = styles
  return(
@@ -34,9 +53,9 @@ const PlaceCreate = (props) => {
           />
 
           <ImageTaker onImageSelect={imageSelectionHandler}/>
-          <LocationSelector />
+          <LocationSelector onViewMap={setLocationWithMapHandler} />
           <View style={submitBtn}>
-            <Button title="Save" color={colors.orangeLight} onPress={()=> savePlaceHandler(title, selectedImg)}/>
+            <Button title="Save Place" color={colors.orangeDark} onPress={()=> savePlaceHandler(title, selectedImg)}/>
           </View>
         </View>
     </ScrollView>
@@ -57,7 +76,7 @@ const styles = StyleSheet.create({
   },
   form:{
     margin: 20,
-    justifyContent: 'flex-start',
+    justifyContent: 'center',
     alignItems: 'center'
   },
   label: {
@@ -81,10 +100,10 @@ const styles = StyleSheet.create({
     borderRadius: 10
   },
   submitBtn:{
-    width: '50%',
-    borderWidth: 1,
-    borderColor: colors.orangeDark,
-    borderRadius: 20,
+    width: '80%',
+    borderWidth: 3,
+    borderColor: 'whitesmoke',
+    borderRadius: 15,
     overflow: 'hidden',
   }
 })

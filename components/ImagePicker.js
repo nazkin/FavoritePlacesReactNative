@@ -62,12 +62,12 @@ const styles = StyleSheet.create({
    flex: 1,
    justifyContent: 'center',
    alignItems: 'center',
-   width: '80%'
+   width: '90%'
   },
   imagePreview:{
       width: '100%',
       minHeight: 100,
-      backgroundColor: 'rgba(0,0,0,0.1)',
+      backgroundColor: 'rgba(0,0,0,0.4)',
       justifyContent: 'center',
       alignItems: 'center',
   },
@@ -83,7 +83,7 @@ const styles = StyleSheet.create({
       color: 'ghostwhite',
       borderBottomColor: colors.cyanDark,
       borderBottomWidth: 4,
-      backgroundColor: 'rgba(0,0,0,0.2)',
+      backgroundColor: 'rgba(0,0,0,0.5)',
   },
   takePhoto: {
       width: '100%',
