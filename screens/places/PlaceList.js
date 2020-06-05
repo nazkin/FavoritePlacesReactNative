@@ -6,7 +6,7 @@ import {useSelector, useDispatch} from 'react-redux'
 import Place from '../../components/Place';
 import HeaderBtn from '../../components/HeaderBtn'
 import * as placeActions from '../redux/actions/placeActions';
-
+import colors from '../../constants/colors'
 
 const PlaceList = (props) => {
   const [serverError, setServerError] = useState(null);
@@ -52,6 +52,7 @@ PlaceList['navigationOptions'] = (navData)=> {
 const styles = StyleSheet.create({
   container: {
    flex: 1,
+   backgroundColor: colors.cyanLight
   }
 })
 export default PlaceList

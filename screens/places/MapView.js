@@ -5,20 +5,29 @@ import MapView, {Marker} from 'react-native-maps'
 import colors from '../../constants/colors';
 
   const MapViewScreen = (props) => {
-  const [selectedLat, setSelectedLat] = useState(null);
 
-  const [selectedLong, setSelectedLong] = useState(null);
+  const readOnly = props.navigation.getParam('readOnly');
+  const lat = props.navigation.getParam('lat');
+  const long = props.navigation.getParam('long');
+
+  const [selectedLat, setSelectedLat] = useState();
+  const [selectedLong, setSelectedLong] = useState();
 
   const mapRegion = {
-    latitude: 43.5891,
-    longitude: -79.6389,
+    latitude:lat ? lat : 43.5891,
+    longitude:long?long : -79.6389,
     latitudeDelta: 0.0922,
     longitudeDelta: 0.0421
   };
 
   const selectLocationHandler = (event) => {
-    setSelectedLat(event.nativeEvent.coordinate.latitude);
-    setSelectedLong(event.nativeEvent.coordinate.longitude);
+    if(readOnly){
+      return;
+    }
+    const latLocation = event.nativeEvent.coordinate.latitude;
+    const lngLocation = event.nativeEvent.coordinate.longitude
+    setSelectedLat(latLocation);
+    setSelectedLong(lngLocation);
   };
 
   const saveLocationSelectionHandler = useCallback(() => {
@@ -32,19 +41,30 @@ import colors from '../../constants/colors';
     props.navigation.setParams({saveLocation: saveLocationSelectionHandler});
   }, [saveLocationSelectionHandler]);
 
-  let selectedLocation;
+  let selectedLocation = null;
+  let marker;
     if(selectedLat && selectedLong){
       selectedLocation = {
         latitude: selectedLat,
         longitude: selectedLong
       }
+    }else if(readOnly){
+      selectedLocation = {
+        latitude: lat,
+        longitude: long
+      }
+    }
+    if(selectedLocation){
+      marker = <Marker title="Place Location" coordinate={selectedLocation}/>
+    } else {
+      marker = null;
     }
 
 //***********************JSX component return ******************
   const { container} = styles;
   return(
     <MapView style={container} region={mapRegion} onPress={selectLocationHandler}>
-      {selectedLocation ? <Marker title="Place Location" coordinate={selectedLocation}/> : null}
+      {marker}
     </MapView>
   )
 //***********************JSX component return ******************
@@ -54,7 +74,12 @@ import colors from '../../constants/colors';
 
 //***********************Navigation and Header return******************
 MapViewScreen['navigationOptions'] = (navData)=> {
+  const readOnlyMode = navData.navigation.getParam('readOnly');
+  if(readOnlyMode){
+    return {};
+  }
   const saveMap = navData.navigation.getParam('saveLocation');
+
   const { headerBtn, headerTxt} = styles;
     return {
         title: 'Map',
@@ -65,7 +90,7 @@ MapViewScreen['navigationOptions'] = (navData)=> {
 
         
 
-    }
+    };
 }
 //***********************Navigation and Header return******************
 
@@ -80,8 +105,6 @@ const styles = StyleSheet.create({
   },
   headerBtn: {
     marginHorizontal: 20,
-    
-    backgroundColor: colors.cyanLight
   },
   headerTxt: {
     fontSize: 16,

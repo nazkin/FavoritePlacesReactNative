@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
 import Colors from '../constants/colors';
+import colors from '../constants/colors';
 
 const PlaceItem = props => {
   return (
@@ -16,12 +17,15 @@ const PlaceItem = props => {
 
 const styles = StyleSheet.create({
   placeItem: {
-    borderBottomColor: '#ccc',
-    borderBottomWidth: 1,
+    borderColor: colors.cyanDark,
+    borderWidth: 3,
+    borderRadius: 10,
     paddingVertical: 15,
     paddingHorizontal: 30,
     flexDirection: 'row',
-    alignItems: 'center'
+    alignItems: 'center',
+    marginVertical: 5,
+    backgroundColor: Colors.accentPurple
   },
   image: {
     width: 70,
@@ -29,7 +33,7 @@ const styles = StyleSheet.create({
     borderRadius: 35,
     backgroundColor: '#ccc',
     borderColor: Colors.orangeDark,
-    borderWidth: 1
+    borderWidth: 3
   },
   infoContainer: {
     marginLeft: 25,
@@ -38,9 +42,13 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start'
   },
   title: {
-    color: 'black',
+    color: 'whitesmoke',
     fontSize: 18,
-    marginBottom: 5
+    marginBottom: 5,
+    padding: 3,
+    width: '100%',
+    backgroundColor: 'rgba(0,0,0, 0.2)'
+
   },
   address: {
     color: '#666',
