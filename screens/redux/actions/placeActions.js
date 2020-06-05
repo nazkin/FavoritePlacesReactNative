@@ -1,5 +1,6 @@
  import * as FileSystem from 'expo-file-system';
  import { insertPlace, fetchPlaces } from '../../../storageHelpers/db';
+ import env from '../../../env';
 
  export const ADD_PLACE = 'ADD_PLACE';
  export const DELETE_PLACE = 'DELETE_PLACE';
@@ -20,10 +21,20 @@
     };
  }
 
- export const addPlace = (title, image)=>{
+ export const addPlace = (title, image, lat, long)=>{
     return async dispatch=>{
+        //reverse geocoding
+        const response = await fetch(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${long}&key=${env.apiKey}`);
+        const resData = await response.json();
+
+        if(!resData.results){
+            throw new Error('Can not fetch the address of your coordinates');
+        }
+
+        const coordinateAddress = resData.results[0].formatted_address;
         const imageName = image.split('/').pop();
         const imagePath = FileSystem.documentDirectory + imageName;
+
         try{
 
             await FileSystem.moveAsync({
@@ -31,7 +42,7 @@
                 to: imagePath
             });
         
-            const dbInsert = await insertPlace(title, imagePath, '111 Address St', 15.0, 22.0);
+            const dbInsert = await insertPlace(title, imagePath, coordinateAddress, lat,long);
 
             console.log(dbInsert);
 
@@ -40,20 +51,20 @@
                 data:{
                     id: dbInsert.insertId,
                     title,
-                    image: imagePath
+                    image: imagePath,
+                    address: coordinateAddress,
+                    latitude: lat,
+                    longitude: long
                 }
             });
 
         }catch(err){
-
             console.log(err);
             throw err;
-
         }
-
     }
 
- }
+}
 
  export const deletePlace = ()=>{
     return {

@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useCallback} from 'react';
 import { View, Text, StyleSheet, ScrollView, TextInput, Button } from 'react-native';
 import {useDispatch} from 'react-redux';
 
@@ -12,24 +12,27 @@ const PlaceCreate = (props) => {
   const [title, setTitle] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [selectedImg, setSelectedImg] = useState(null);
+  const [mapLat, setMapLat] = useState();
+  const [mapLong, setMapLong] = useState();
 
+  const mapLatitude = props.navigation.getParam('lat');
+  const mapLongitude = props.navigation.getParam('long');
 
-  // let mapLat = !props.navigation.getParam('lat') ? null : props.navigation.getParam('lat') ;
-  // let mapLong = !props.navigation.getParam('long') ? null : props.navigation.getParam('long');
+  useEffect(()=> {
+    if(mapLatitude){
+      setMapLat(mapLatitude);
+      setMapLong(mapLongitude);
+    }
+  }, [mapLatitude, mapLongitude]);
 
-  // useEffect(()=> {
+  const locationPickedHandler = (lat, long)=> {
+    setMapLat(lat);
+    setMapLong(long);
 
-  //   if(!mapLat || !mapLong){
-  //     return
-  //   }
+  }
 
-  //   setLatitude(mapLat);
-  //   setLongitude(mapLong);
-
-  // }, [mapLat, mapLong])
-
-  const savePlaceHandler = (textTitle, image)=> {
-    dispatch(placesActions.addPlace(textTitle, image));
+  const savePlaceHandler = (textTitle, image, lat, long)=> {
+    dispatch(placesActions.addPlace(textTitle, image, lat, long));
     props.navigation.goBack();
   }
   const imageSelectionHandler = (imgURI) =>{
@@ -53,9 +56,9 @@ const PlaceCreate = (props) => {
           />
 
           <ImageTaker onImageSelect={imageSelectionHandler}/>
-          <LocationSelector onViewMap={setLocationWithMapHandler} />
+          <LocationSelector onViewMap={setLocationWithMapHandler} mapLat={mapLat} mapLong={mapLong} onLocationSelect= {locationPickedHandler}/>
           <View style={submitBtn}>
-            <Button title="Save Place" color={colors.orangeDark} onPress={()=> savePlaceHandler(title, selectedImg)}/>
+            <Button title="Save Place" color={colors.orangeDark} onPress={()=> savePlaceHandler(title, selectedImg, mapLat, mapLong)}/>
           </View>
         </View>
     </ScrollView>

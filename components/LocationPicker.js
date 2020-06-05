@@ -11,6 +11,15 @@ const [locLoad, setLocLoad] = useState(false);
 const [lat, setLat] = useState();
 const [long, setLong] = useState();
 
+const {mapLong, mapLat, onLocationSelect} = props;
+
+useEffect(()=> {
+    if(mapLong && mapLat){
+        setLat(mapLat);
+        setLong(mapLong);
+    }
+}, [mapLat, mapLong]);
+
 
 const verifyPermissions = async ()=> {
     const resLocation = await Permissions.askAsync(Permissions.LOCATION);
@@ -43,6 +52,7 @@ const selectLocationHandler = async ()=> {
 
         setLat(location.coords.latitude);
         setLong(location.coords.longitude);
+        onLocationSelect(location.coords.latitude, location.coords.longitude)
         setLocLoad(false);
     }catch(err){
         setLocLoad(false);

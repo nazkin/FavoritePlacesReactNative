@@ -86,12 +86,14 @@ const styles = StyleSheet.create({
   headerTxt: {
     fontSize: 16,
     fontWeight: '700',
-    color: colors.orangeDark,
+    color: 'white',
     borderColor: colors.orangeDark,
     borderWidth: 2, 
     borderRadius: 50,
     padding: 4,
-    overflow: 'hidden'
+    overflow: 'hidden',
+    textAlign: 'center',
+    textAlignVertical: 'center'
   }
 });
 //***********************Styles******************

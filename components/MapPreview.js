@@ -1,13 +1,13 @@
 import React from 'react';
 import { View, Image, StyleSheet, TouchableOpacity } from 'react-native';
 
-import * as mapsData from '../env'
+import env from '../env'
 
 const MapPreview = props => {
 
   let imagePreviewUrl = null;
 
-    imagePreviewUrl =   `https://maps.googleapis.com/maps/api/staticmap?center=${props.latitude},${props.longitude}&zoom=13&size=300x150&maptype=roadmap&markers=color:red%7Clabel:A%7C${props.latitude},${props.longitude}&key=`
+    imagePreviewUrl =   `https://maps.googleapis.com/maps/api/staticmap?center=${props.latitude},${props.longitude}&zoom=13&size=300x150&maptype=roadmap&markers=color:red%7Clabel:A%7C${props.latitude},${props.longitude}&key=${env.apiKey}`;
     // imagePreviewUrl = `https://maps.googleapis.com/maps/api/staticmap?center=${props.latitude},${props.longitude}&zoom=14&size=300x150&maptype=roadmap&markers=color:red%7Clabel:A%7C${props.latitude},${props.longitude}&key=${mapsData.apiKey}`;
 
         return (

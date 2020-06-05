@@ -6,6 +6,7 @@ import CreatePlaceScreen from '../screens/places/PlaceCreate';
 import DetailedPlaceScreen from '../screens/places/PlaceDetail';
 import PlaceListScreen from '../screens/places/PlaceList';
 
+
 import colors from '../constants/colors';
 
 const PlacesStackNav = createStackNavigator({

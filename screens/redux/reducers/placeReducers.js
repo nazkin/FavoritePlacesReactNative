@@ -10,10 +10,16 @@ export default (state = initialState, action) => {
     switch(action.type){
         case FETCH_PLACES:
             return {
-                places: action.places.map(place=> new Place(place.id.toString(), place.title, place.imgUri, '111 Test St', 15.3, 22.2))
+                places: action.places.map(place=> new Place(place.id.toString(), place.title, place.imgUri, place.address, place.lat, place.lng))
             }
         case ADD_PLACE:
-            const addedPlace = new Place(action.data.id.toString(), action.data.title, action.data.image, '111 Test St', 15.3, 22.2);
+            const addedPlace = new Place(
+                action.data.id.toString(),
+                action.data.title,
+                action.data.image,
+                action.data.address,
+                action.data.latitude,
+                action.data.longitude );
             return {
                 places: state.places.concat(addedPlace)
             }
